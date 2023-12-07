@@ -1,0 +1,13 @@
+spring:
+    datasource:
+        password:
+        username:
+        url:
+    jpa:
+        hibernate:
+            ddl-auto: update
+
+springdoc:
+  swagger-ui:
+    disable-swagger-default-url: true
+    path: /api
