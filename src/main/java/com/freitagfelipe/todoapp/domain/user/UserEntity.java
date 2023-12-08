@@ -1,8 +1,10 @@
 package com.freitagfelipe.todoapp.domain.user;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.freitagfelipe.todoapp.domain.todo.TodoEntity;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -36,6 +38,9 @@ public class UserEntity implements UserDetails {
 
     @NotNull
     private UserRole role;
+
+    @OneToMany
+    private Collection<TodoEntity> todos;
 
     @JsonIgnore
     @Override
