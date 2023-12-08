@@ -47,6 +47,10 @@ public class TokenService {
         }
     }
 
+    public Optional<String> validateAuthorization(String authorization) {
+        return this.validateToken(authorization.replace("Bearer ", ""));
+    }
+
     private Instant generateExpirationDate() {
         return LocalDateTime
                 .now()
