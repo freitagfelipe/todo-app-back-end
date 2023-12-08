@@ -33,18 +33,9 @@ public class UserController {
 
     @DeleteMapping
     public ResponseEntity<?> delete(
-            @Schema(hidden = true) @RequestHeader(HttpHeaders.AUTHORIZATION) String authorization,
-            @RequestParam(name = "username") String username
+            @Schema(hidden = true) @RequestHeader(HttpHeaders.AUTHORIZATION) String authorization
     ) {
-        String subject = this.tokenService.validateAuthorization(authorization).get();
-
-        if (!subject.equals(username)) {
-            return ResponseHandler.generateResponse(
-                    Optional.empty(),
-                    Optional.empty(),
-                    HttpStatus.UNAUTHORIZED
-            );
-        }
+        String username = this.tokenService.validateAuthorization(authorization).get();
 
         if (!this.repository.existsById(username)) {
             return ResponseHandler.generateResponse(
@@ -63,21 +54,12 @@ public class UserController {
         );
     }
 
-    @PostMapping
+    @PutMapping
     public ResponseEntity<?> update(
             @Schema(hidden = true) @RequestHeader(HttpHeaders.AUTHORIZATION) String authorization,
-            @RequestParam(name = "username") String username,
             @RequestBody UserUpdateDTO user
     ) {
-        String subject = this.tokenService.validateAuthorization(authorization).get();
-
-        if (!subject.equals(username)) {
-            return ResponseHandler.generateResponse(
-                    Optional.empty(),
-                    Optional.empty(),
-                    HttpStatus.UNAUTHORIZED
-            );
-        }
+        String username = this.tokenService.validateAuthorization(authorization).get();
 
         Optional<UserEntity> result = this.repository.findById(username);
 
