@@ -36,9 +36,7 @@ public class JWTValidatorFilter extends OncePerRequestFilter {
         Optional<String> token = this.recoverToken(request);
 
         if (token.isEmpty()) {
-            response.setStatus(HttpStatus.UNAUTHORIZED.value());
-            response.getOutputStream().print("{ \"message\": \"No token provided\" }");
-            response.setContentType(MediaType.APPLICATION_JSON_VALUE);
+            filterChain.doFilter(request, response);
 
             return;
         }
